@@ -174,6 +174,7 @@ ignore = [
     "C901", # too complex
     "T201", # do not use print
     "B008", # do not perform function calls in argument defaults
+    "N815", # mixedCase variable in class scope
 ]
 
 [tool.ruff.per-file-ignores]
@@ -187,4 +188,3 @@ max-complexity = 10
 # If you need to import packages from git URLs
 # [tool.hatch.metadata]
 # allow-direct-references = true
-

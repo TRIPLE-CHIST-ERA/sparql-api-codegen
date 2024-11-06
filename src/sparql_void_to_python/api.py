@@ -1,7 +1,14 @@
 """Example class."""
+
 from typing import Optional
 
 from sparql_void_to_python.settings import Settings, log
+
+
+def generate_code_for_endpoint(endpoint: str) -> None:
+    print("Querying the endpoint", endpoint)
+    # TODO: create file
+
 
 # TODO: This is a placeholder, to be removed
 class Api:
