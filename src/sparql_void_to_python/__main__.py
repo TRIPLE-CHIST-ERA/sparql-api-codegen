@@ -1,33 +1,23 @@
 import typer
 
 from sparql_void_to_python import __version__
-from sparql_void_to_python.api import Api
-from sparql_void_to_python.settings import BOLD, CYAN, END, Settings, parse_settings
+from sparql_void_to_python.generate_code import generate_code_for_endpoint
 
 cli = typer.Typer()
 
 
-@cli.command("hello")
-def cli_hello(
-    name: str = typer.Argument("World", help="Who to greet"),
-    settings: str = typer.Option(None, help="Path to the settings file"),
-    output: str = typer.Option(None, "-o", help="Path to the output file"),
-    verbose: bool = typer.Option(True, help="Display logs"),
+@cli.command()
+def cli_gen(
+    endpoint: str = typer.Argument(None, help="SPARQL Endpoint URL"),
+    folder: str = typer.Argument(None, help="Folder where to create the python package, will be also the package name"),
+    ignore: list[str] = typer.Option(None, "-i", help="List of classes to ignore"),
+    version: bool = typer.Option(False, help="Display version"),
+    # verbose: bool = typer.Option(True, help="Display logs"),
 ) -> None:
-    conf = parse_settings(settings) if settings else Settings()
-    api = Api(conf)
-    if output:
-        if verbose:
-            print(f"Writing to file {BOLD}{CYAN}{output}{END}")
-        with open(output, "w") as file:
-            file.write(api.hello_world(name))
+    if version:
+        print(__version__)
     else:
-        print(api.hello_world(name))
-
-
-@cli.command("version")
-def cli_version() -> None:
-    print(__version__)
+        generate_code_for_endpoint(endpoint, folder, ignore)
 
 
 if __name__ == "__main__":

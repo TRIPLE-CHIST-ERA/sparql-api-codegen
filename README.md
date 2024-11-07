@@ -1,92 +1,61 @@
 <div align="center">
 
-# SPARQL VoID to python API
+# ✨ SPARQL VoID to python API 🐍
 
 </div>
 
-A package to automatically generate python API package from a SPARQL endpoint VoID description
+A CLI tool to automatically generate a python package from a SPARQL endpoint VoID description.
 
-A CLI to generate python code with dataclasses to materialize an API for a SPARQL endpoint using its VoID description.
-
-```sh
-void-to-python gen <void-ttl-file> <directory-to-generate-python-code>
-```
-
-Example API for Bgee:
-
-```python
-from bgee_api import bgee
-
-# Or:
-from bgee_api import Gene, AnatomicalEntity
-
-
-# 1. Get a specific instance of a class
-p1_gene = bgee.orth_gene.get(
-    iri="http://P00001", # Mandatory
-    id="P0001", # Nice to have
-    # fields=["label"], # Later
-)
-# Or could be something like:
-p1_gene = Gene("http://P00001")
-
-# Only retrieve ID, label
-print(p1_gene.label)
-# Everything is lazy, when the user asks for fields we run a query to get it
-# Later we will try to optimize by retrieving many fields if asked at once
-print(p1_gene.description)
-
-print(p1_gene.encodes)
-
-# bgee.gene.get(id="P00001")
-bgee.species.get(iri="P00001")
-
-# 2. Get the list of instances of a class
-gene_list = bgee.gene.list()
-# Retrieves a list of Gene object. Only ID is preloaded.
-```
-
-> ⚠️ If conflicts in class name, e.g. `orth:Gene` and `up:Gene` we should be smart about it
-
-## 📦️ Installation
-
-This package requires Python >=3.8, simply install it with:
-
-```bash
-pip install sparql-void-to-python
-```
-
-You can also install directly from the git repository:
-
-```bash
-pip install git+https://github.com/TRIPLE-CHIST-ERA/sparql-void-to-python.git
-```
+* Each class in the endpoint will be defined as a python class
+* It will use the classes and predicates labels from their ontology when possible to generate the python classes and their fields
+* Type annotations are used
+* Fields of a class are retrieved when the field is called (lazy 🦥)
 
 ## 🪄 Usage
 
-### ⌨️ Use as a command-line interface
+> Requirements: Python >=3.9
 
-You can easily use your package from your terminal after installing `sparql-void-to-python` with pip:
+1. Install the package with `pip` or `pipx`:
 
-```bash
-sparql-void-to-python
+   ```sh
+   pipx install sparql-void-to-python
+   ```
+
+2. Generate the code for a SPARQL endpoint which contains a SPARQL Service Description:
+
+   ```sh
+   sparql-void-to-python <void-ttl-file> <directory-to-generate-python-code> -i <iri-of-class-to-ignore>
+   ```
+
+Optionally you can ignore some classes. For some endpoints this will be required if the label generated for 2 classes are identical, e.g. for Bgee:
+
+```sh
+sparql-void-to-python "https://www.bgee.org/sparql/" "bgee-api" \
+	-i http://purl.obolibrary.org/obo/CARO_0000000 \
+	-i http://purl.obolibrary.org/obo/SO_0000704 \
+	-i http://purl.obolibrary.org/obo/NCIT_C14250
 ```
 
-Get a full rundown of the available options with:
+Example python API for Bgee:
 
-```bash
-sparql-void-to-python --help
+```python
+from bgee_api import AnatomicalEntity, Gene, GeneExpressionExperimentCondition
+
+
+if __name__ == "__main__":
+    anat = AnatomicalEntity("http://purl.obolibrary.org/obo/AEO_0000013")
+    print(anat)
+    print(anat.label)
+    print(anat.expresses)
+
+    gene= Gene("http://omabrowser.org/ontology/oma#GENE_ENSMUSG00000053483")
+    print(gene.label)
+    print(gene.in_taxon)
+
+    cond = GeneExpressionExperimentCondition("http://bgee.org/#EXPRESSION_CONDITION_101909")
+    print(cond.description)
+    print(cond.has_anatomical_entity)
 ```
-
-### 🐍 Use with python
-
- Use this package in python scripts:
-
- ```python
-import sparql_void_to_python
-
-# TODO: add example to use your package
- ```
 
 ## 🧑‍💻 Development setup
 
@@ -114,13 +83,17 @@ Or you could install in your favorite virtual env:
 
 ```bash
 pip install -e ".[test]"
+```
 
-### Develop
+### 🛠️ Develop
 
-Open a shell with virtual env to run your scripts:
+Test with the Bgee endpoint:
 
 ```bash
-hatch shell
+hatch run sparql-void-to-python "https://www.bgee.org/sparql/" "bgee-api" \
+    -i http://purl.obolibrary.org/obo/CARO_0000000 \
+    -i http://purl.obolibrary.org/obo/SO_0000704 \
+    -i http://purl.obolibrary.org/obo/NCIT_C14250
 ```
 
 ### ☑️ Run tests
@@ -136,8 +109,6 @@ To display all logs when debugging:
 ```bash
 hatch run test -s
 ```
-
-
 
 ### ♻️ Reset the environment
 

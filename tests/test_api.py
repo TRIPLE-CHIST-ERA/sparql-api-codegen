@@ -1,11 +1,11 @@
-from sparql_void_to_python import Api, __version__
+# from sparql_void_to_python.bgee import AnatomicalEntity
 
 
-def test_api():
-    """Test the package main function"""
-    api = Api()
-    assert api.hello_world("test") == "[0] Hello test [1] Hello test "
-
-def test_version():
-    """Test the version is a string."""
-    assert isinstance(__version__, str)
+# def test_api():
+#     """Test the package main function"""
+#     anat = AnatomicalEntity(iri="http://purl.obolibrary.org/obo/AEO_0000013")
+#     print(anat)
+#     print(anat.label)
+#     print(anat)
+#     assert anat.label == "single-cell tissue"
+#     # assert api.hello_world("test") == "[0] Hello test [1] Hello test "

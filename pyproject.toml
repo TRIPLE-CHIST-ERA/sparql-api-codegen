@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-requires-python = ">=3.8"
+requires-python = ">=3.9"
 name = "sparql-void-to-python"
 description = "Automatically generate python API package from a SPARQL endpoint VoID description"
 readme = "README.md"
@@ -16,12 +16,12 @@ maintainers = [
 ]
 keywords = [
     "Python",
+    "SPARQL",
 ]
 classifiers = [
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
@@ -31,8 +31,7 @@ dynamic = ["version"]
 
 dependencies = [
     "requests",
-    "PyYAML",
-    "typer >=0.6.0",
+    "typer >=0.12.0",
 ]
 
 
@@ -42,13 +41,12 @@ sparql-void-to-python = "sparql_void_to_python.__main__:cli"
 
 [project.optional-dependencies]
 test = [
-    "pytest >=7.4.0",
-    "pytest-cov >=3.0.0",
+    "pytest >=8.3.3",
+    "pytest-cov >=6.0.0",
     "pre-commit",
     "mypy >=1.4.1",
     "pip-tools",
     "types-requests",
-    "types-PyYAML",
 ]
 
 
@@ -70,13 +68,11 @@ post-install-commands = [
 ]
 
 [tool.hatch.envs.default.scripts]
-dev = "python tests/dev.py {args}"
 fmt = [
     "pre-commit run --all --all-files",
     "mypy",
 ]
 test = [
-    "fmt",
     "pytest {args}",
 ]
 cov = [
