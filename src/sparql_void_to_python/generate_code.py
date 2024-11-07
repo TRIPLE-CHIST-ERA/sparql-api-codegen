@@ -13,7 +13,6 @@ SELECT DISTINCT ?subjectClassLabel ?subjectClass ?prop ?propLabel ?objectClass ?
 WHERE {
   {
     ?cp void:class ?subjectClass ;
-        void:entities ?subjectsCount ;
         void:propertyPartition ?pp .
     OPTIONAL { ?subjectClass rdfs:label ?subjectClassLabel }
     ?pp void:property ?prop .
@@ -36,22 +35,20 @@ WHERE {
 
 def format_class_label(label: str) -> str:
     if "#" in label:
-        return label.split("#")[-1].capitalize().replace(" ", "").replace("-", "")
+        return label.split("#")[-1].capitalize().replace(" ", "").replace("-", "").replace("(", "").replace(")", "")
     if "/" in label:
-        return label.split("/")[-1].capitalize().replace(" ", "").replace("-", "")
-    return (
-        "".join(word.capitalize() for word in label.split())
-        if " " in label
-        else label.replace(" ", "").replace("-", "").replace("_", "").capitalize()
-    )
+        return label.split("/")[-1].capitalize().replace(" ", "").replace("-", "").replace("(", "").replace(")", "")
+    label = "".join(word.capitalize() for word in label.split()) if " " in label else label
+    # print(label)
+    return label.replace(" ", "").replace("-", "").replace("_", "").replace("(", "").replace(")", "")
 
 
 def format_property_label(label: str) -> str:
     if "#" in label:
-        return label.split("#")[-1].lower().replace(" ", "_").replace("-", "")
+        return label.split("#")[-1].lower().replace(" ", "_").replace("-", "").replace("(", "").replace(")", "")
     if "/" in label:
-        return label.split("/")[-1].lower().replace(" ", "_").replace("-", "")
-    return label.lower().replace(" ", "_").replace("-", "")
+        return label.split("/")[-1].lower().replace(" ", "_").replace("-", "").replace("(", "").replace(")", "")
+    return label.lower().replace(" ", "_").replace("-", "").replace("(", "").replace(")", "")
 
 
 # TODO: handle when no label, and we get the URI
@@ -76,6 +73,7 @@ def get_void_dict(endpoint_url: str, ignore_cls: list[str]):
     void_dict: TripleDict = {}
     label_dict = {}
     check_duplicate_label_dict = {}
+    # print(query_sparql(GET_VOID_DESC, endpoint_url))
     for void_triple in query_sparql(GET_VOID_DESC, endpoint_url)["results"]["bindings"]:
         subj_cls_iri = void_triple["subjectClass"]["value"]
         # Filter out OWL classes

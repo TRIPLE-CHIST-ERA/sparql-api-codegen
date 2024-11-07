@@ -6,9 +6,9 @@
 
 A CLI tool to automatically generate a python package from a SPARQL endpoint VoID description.
 
-* Each class in the endpoint will be defined as a python class
+* Each class in the endpoint will be defined as a python class, with fields for each predicates available on a class.
 * It will use the classes and predicates labels from their ontology when possible to generate the python classes and their fields
-* Type annotations are used
+* Type annotations are used for better autocompletion
 * Fields of a class are retrieved when the field is called (lazy 🦥)
 
 ## 🪄 Usage
@@ -50,12 +50,21 @@ if __name__ == "__main__":
 
     gene= Gene("http://omabrowser.org/ontology/oma#GENE_ENSMUSG00000053483")
     print(gene.label)
-    print(gene.in_taxon)
 
     cond = GeneExpressionExperimentCondition("http://bgee.org/#EXPRESSION_CONDITION_101909")
-    print(cond.description)
+    print(cond.has_a_developmental_stage)
     print(cond.has_anatomical_entity)
 ```
+
+For UniProt:
+
+```sh
+sparql-void-to-python "https://sparql.uniprot.org/sparql/" "uniprot-api" \
+	-i http://biohackathon.org/resource/faldo#Region \
+
+```
+
+
 
 ## 🧑‍💻 Development setup
 
