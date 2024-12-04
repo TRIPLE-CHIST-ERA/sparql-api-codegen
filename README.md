@@ -6,6 +6,10 @@
 
 A CLI tool to automatically generate a python package from a SPARQL endpoint VoID description.
 
+It will generate a folder with all requirements for publishing a modern python package containing the classes to automatically work with the data in the endpoint.
+
+Features:
+
 * Each class in the endpoint will be defined as a python class, with fields for each predicates available on a class.
 * It will use the classes and predicates labels from their ontology when possible to generate the python classes and their fields
 * Type annotations are used for better autocompletion
@@ -27,6 +31,8 @@ A CLI tool to automatically generate a python package from a SPARQL endpoint VoI
    sparql-void-to-python <void-ttl-file> <directory-to-generate-python-code> -i <iri-of-class-to-ignore>
    ```
 
+3. Once the folders have been generated you can get into the folder, check and improve the instructions to run in the `README.md`, improve the metadata in the `pyproject.toml`
+
 Optionally you can ignore some classes. For some endpoints this will be required if the label generated for 2 classes are identical, e.g. for Bgee:
 
 ```sh
@@ -43,6 +49,9 @@ from bgee_api import AnatomicalEntity, Gene, GeneExpressionExperimentCondition
 
 
 if __name__ == "__main__":
+    all_anats = AnatomicalEntity.get()
+    print(len(all_anats), all_anats[0])
+
     anat = AnatomicalEntity("http://purl.obolibrary.org/obo/AEO_0000013")
     print(anat)
     print(anat.label)
@@ -60,7 +69,7 @@ For UniProt:
 
 ```sh
 sparql-void-to-python "https://sparql.uniprot.org/sparql/" "uniprot-api" \
-	-i http://biohackathon.org/resource/faldo#Region \
+	-i http://biohackathon.org/resource/faldo#Region
 
 ```
 
@@ -82,7 +91,7 @@ cd sparql-void-to-python
 
 ### 🐣 Install dependencies
 
-Install [Hatch](https://hatch.pypa.io), this will automatically handle virtual environments and make sure all dependencies are installed when you run a script in the project:
+Install [Hatch](https://hatch.pypa.io), a modern build system, as well as project and virtual env management tool recommended by the Python Packaging Authority. This will automatically handle virtual environments and make sure all dependencies are installed when you run a script in the project:
 
 ```bash
 pipx install hatch
@@ -152,3 +161,15 @@ You can also build and publish from your computer:
 hatch build
 hatch publish
 ```
+
+### TODO
+
+Bulk load with preloaded fields
+
+```python
+all_anats_preloaded: list[AnatomicalEntity] = bulk_load(AnatomicalEntity, ["label", "expresses"])
+# Or
+all_anats_preloaded: list[AnatomicalEntity] = AnatomicalEntity.get(["label", "expresses"])
+```
+
+> Allow also to pass a list of IRI (optional, if not we get all?)
