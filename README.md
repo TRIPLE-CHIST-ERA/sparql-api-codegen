@@ -28,7 +28,7 @@ Features:
 2. Generate the code for a SPARQL endpoint which contains a SPARQL Service Description:
 
    ```sh
-   sparql-void-to-python <void-ttl-file> <directory-to-generate-python-code> -i <iri-of-class-to-ignore>
+   sparql-void-to-python <sparql-endpoint-url> <folder-for-generated-python-pkg> -i <iri-of-class-to-ignore>
    ```
 
 3. Once the folders have been generated you can get into the folder, check and improve the instructions to run in the `README.md`, improve the metadata in the `pyproject.toml`
@@ -70,10 +70,7 @@ For UniProt:
 ```sh
 sparql-void-to-python "https://sparql.uniprot.org/sparql/" "uniprot-api" \
 	-i http://biohackathon.org/resource/faldo#Region
-
 ```
-
-
 
 ## 🧑‍💻 Development setup
 
@@ -162,14 +159,25 @@ hatch build
 hatch publish
 ```
 
-### TODO
+### TODO?
 
-Bulk load with preloaded fields
+- Bulk load with preloaded fields
 
-```python
-all_anats_preloaded: list[AnatomicalEntity] = bulk_load(AnatomicalEntity, ["label", "expresses"])
-# Or
-all_anats_preloaded: list[AnatomicalEntity] = AnatomicalEntity.get(["label", "expresses"])
-```
+  ```python
+  all_anats_preloaded: list[AnatomicalEntity] = bulk_load(AnatomicalEntity, ["label", "expresses"])
+  # Or
+  all_anats_preloaded: list[AnatomicalEntity] = AnatomicalEntity.get(["label", "expresses"])
+  ```
 
-> Allow also to pass a list of IRI (optional, if not we get all?)
+  > Allow also to pass a list of IRI (optional, if not we get all?)
+
+- Returns pandas matrix with filters?
+
+  ```python
+  pandas_matrix = BiologicalEntity.get_matrix(
+      filter_has_a_developmental_stage="http://some_dev_stage",
+      filter_has_anatomical_entity="some anatomical entity",
+  )
+  ```
+
+  > Also enable to filter on labels instead of IRI?

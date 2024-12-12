@@ -8,9 +8,9 @@ cli = typer.Typer()
 
 @cli.command()
 def cli_gen(
-    endpoint: str = typer.Argument(None, help="SPARQL Endpoint URL"),
-    folder: str = typer.Argument(None, help="Folder where to create the python package, will be also the package name"),
-    ignore: list[str] = typer.Option(None, "-i", help="List of classes to ignore"),
+    endpoint: str = typer.Argument(help="SPARQL Endpoint URL"),
+    folder: str = typer.Argument(help="Folder where to create the python package, will be also the package name"),
+    ignore: list[str] = typer.Option(None, "-i", help="Class to ignore (can be used multiple times)"),
     version: bool = typer.Option(False, help="Display version"),
     # verbose: bool = typer.Option(True, help="Display logs"),
 ) -> None:
