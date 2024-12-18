@@ -1,6 +1,9 @@
 <div align="center">
 
-# ✨ SPARQL VoID to python API 🐍
+# ✨ SPARQL API code generator 🐍
+
+[![PyPI - Version](https://img.shields.io/pypi/v/sparql-api-codegen.svg?logo=pypi&label=PyPI&logoColor=silver)](https://pypi.org/project/sparql-api-codegen/)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/sparql-api-codegen.svg?logo=python&label=Python&logoColor=silver)](https://pypi.org/project/sparql-api-codegen/)
 
 </div>
 
@@ -159,7 +162,7 @@ hatch build
 hatch publish
 ```
 
-### TODO?
+### TODO
 
 - Bulk load with preloaded fields
 
