@@ -1,7 +1,7 @@
 import typer
 
-from sparql_void_to_python import __version__
-from sparql_void_to_python.generate_code import generate_code_for_endpoint
+from sparql_api_codegen import __version__
+from sparql_api_codegen.generate_code import generate_code_for_endpoint
 
 cli = typer.Typer()
 

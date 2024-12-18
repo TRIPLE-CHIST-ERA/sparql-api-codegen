@@ -1,6 +1,6 @@
 from typer.testing import CliRunner
 
-from sparql_void_to_python.__main__ import cli
+from sparql_api_codegen.__main__ import cli
 
 runner = CliRunner()
 

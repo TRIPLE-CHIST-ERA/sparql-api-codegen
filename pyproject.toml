@@ -4,8 +4,8 @@ build-backend = "hatchling.build"
 
 [project]
 requires-python = ">=3.9"
-name = "sparql-void-to-python"
-description = "Automatically generate python API package from a SPARQL endpoint VoID description"
+name = "sparql-api-codegen"
+description = "Automatically generate python API package from a SPARQL endpoint using its VoID descriptive metadata"
 readme = "README.md"
 license = { file = "LICENSE.txt" }
 authors = [
@@ -36,7 +36,7 @@ dependencies = [
 
 
 [project.scripts]
-sparql-void-to-python = "sparql_void_to_python.__main__:cli"
+sparql-api-codegen = "sparql_api_codegen.__main__:cli"
 
 
 [project.optional-dependencies]
@@ -51,11 +51,11 @@ test = [
 
 
 [project.urls]
-Homepage = "https://github.com/TRIPLE-CHIST-ERA/sparql-void-to-python"
-Documentation = "https://github.com/TRIPLE-CHIST-ERA/sparql-void-to-python"
-History = "https://github.com/TRIPLE-CHIST-ERA/sparql-void-to-python/releases"
-Tracker = "https://github.com/TRIPLE-CHIST-ERA/sparql-void-to-python/issues"
-Source = "https://github.com/TRIPLE-CHIST-ERA/sparql-void-to-python"
+Homepage = "https://github.com/TRIPLE-CHIST-ERA/sparql-api-codegen"
+Documentation = "https://github.com/TRIPLE-CHIST-ERA/sparql-api-codegen"
+History = "https://github.com/TRIPLE-CHIST-ERA/sparql-api-codegen/releases"
+Tracker = "https://github.com/TRIPLE-CHIST-ERA/sparql-api-codegen/issues"
+Source = "https://github.com/TRIPLE-CHIST-ERA/sparql-api-codegen"
 
 
 # ENVIRONMENTS AND SCRIPTS
@@ -93,10 +93,10 @@ python = ["3.9", "3.10", "3.11", "3.12"]
 
 ## TOOLS
 [tool.hatch.build.targets.wheel]
-packages = ["src/sparql_void_to_python"]
+packages = ["src/sparql_api_codegen"]
 
 [tool.hatch.version]
-path = "src/sparql_void_to_python/__init__.py"
+path = "src/sparql_api_codegen/__init__.py"
 
 
 [tool.coverage.run]

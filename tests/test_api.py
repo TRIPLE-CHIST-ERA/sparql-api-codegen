@@ -1,4 +1,4 @@
-# from sparql_void_to_python.bgee import AnatomicalEntity
+# from sparql_api_codegen.bgee import AnatomicalEntity
 
 
 # def test_api():

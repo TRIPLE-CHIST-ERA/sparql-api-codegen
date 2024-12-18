@@ -22,13 +22,13 @@ Features:
 1. Install the package with `pip` or `pipx`:
 
    ```sh
-   pipx install sparql-void-to-python
+   pipx install sparql-api-codegen
    ```
 
 2. Generate the code for a SPARQL endpoint which contains a SPARQL Service Description:
 
    ```sh
-   sparql-void-to-python <sparql-endpoint-url> <folder-for-generated-python-pkg> -i <iri-of-class-to-ignore>
+   sparql-api-codegen <sparql-endpoint-url> <folder-for-generated-python-pkg> -i <iri-of-class-to-ignore>
    ```
 
 3. Once the folders have been generated you can get into the folder, check and improve the instructions to run in the `README.md`, improve the metadata in the `pyproject.toml`
@@ -36,7 +36,7 @@ Features:
 Optionally you can ignore some classes. For some endpoints this will be required if the label generated for 2 classes are identical, e.g. for Bgee:
 
 ```sh
-sparql-void-to-python "https://www.bgee.org/sparql/" "bgee-api" \
+sparql-api-codegen "https://www.bgee.org/sparql/" "bgee-api" \
 	-i http://purl.obolibrary.org/obo/CARO_0000000 \
 	-i http://purl.obolibrary.org/obo/SO_0000704 \
 	-i http://purl.obolibrary.org/obo/NCIT_C14250
@@ -68,7 +68,7 @@ if __name__ == "__main__":
 For UniProt:
 
 ```sh
-sparql-void-to-python "https://sparql.uniprot.org/sparql/" "uniprot-api" \
+sparql-api-codegen "https://sparql.uniprot.org/sparql/" "uniprot-api" \
 	-i http://biohackathon.org/resource/faldo#Region
 ```
 
@@ -82,8 +82,8 @@ The final section of the README is for if you want to run the package in develop
 Clone the repository:
 
 ```bash
-git clone https://github.com/TRIPLE-CHIST-ERA/sparql-void-to-python
-cd sparql-void-to-python
+git clone https://github.com/TRIPLE-CHIST-ERA/sparql-api-codegen
+cd sparql-api-codegen
 ```
 
 ### 🐣 Install dependencies
@@ -105,7 +105,7 @@ pip install -e ".[test]"
 Test with the Bgee endpoint:
 
 ```bash
-hatch run sparql-void-to-python "https://www.bgee.org/sparql/" "bgee-api" \
+hatch run sparql-api-codegen "https://www.bgee.org/sparql/" "bgee-api" \
     -i http://purl.obolibrary.org/obo/CARO_0000000 \
     -i http://purl.obolibrary.org/obo/SO_0000704 \
     -i http://purl.obolibrary.org/obo/NCIT_C14250

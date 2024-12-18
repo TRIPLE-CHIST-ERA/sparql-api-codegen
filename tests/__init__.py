@@ -1,1 +1,1 @@
-"""Tests for :mod:`sparql_void_to_python`."""
+"""Tests for :mod:`sparql_api_codegen`."""

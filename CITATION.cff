@@ -6,7 +6,7 @@ authors:
     given-names: Vincent Emonet
     # affiliation: Institute of Data Science, Maastricht University
 title: "SPARQL VoID to python API"
-repository-code: https://github.com/TRIPLE-CHIST-ERA/sparql-void-to-python
+repository-code: https://github.com/TRIPLE-CHIST-ERA/sparql-api-codegen
 date-released: 2024-11-05
-url: https://pypi.org/project/sparql-void-to-python
+url: https://pypi.org/project/sparql-api-codegen
 # doi: 10.48550/arXiv.0000.00000
